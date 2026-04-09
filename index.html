@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>학생용 갤럭시 · 앱 · AI 실전 가이드</title>
+  <meta name="description" content="학생과 초보자를 위한 갤럭시, 안드로이드 앱 제작, Flutter, AI 도구 활용 실전 가이드 사이트입니다." />
+  <meta name="theme-color" content="#111827" />
+
+  <style>
+/* 공통 링크/버튼 영역 */
+.bottom-links {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.common-btn {
+  display: inline-block;
+  padding: 12px 18px;
+  background: #111827;
+  color: #ffffff;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+.common-btn:hover {
+  text-decoration: none;
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+/* 공통 하단 안내 박스 */
+.common-footer-box {
+  margin-top: 38px;
+  padding: 24px 20px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+}
+
+.common-footer-box h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  color: #111827;
+}
+
+.common-footer-box p {
+  margin-bottom: 14px;
+  color: #374151;
+}
+
+.common-footer-box ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.common-footer-box li {
+  margin-bottom: 10px;
+}
+
+/* 관련 글 리스트 */
+.related-posts {
+  margin-top: 18px;
+  padding-left: 18px;
+}
+
+.related-posts li {
+  margin-bottom: 10px;
+}
+
+/* 공통 카드형 섹션 */
+.section-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 22px 18px;
+  margin-top: 28px;
+}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+      background: #f8fafc;
+      color: #111827;
+      line-height: 1.7;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: white;
+      padding: 24px 18px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+
+    .header-inner {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .site-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+
+    .site-subtitle {
+      font-size: 0.96rem;
+      opacity: 0.9;
+      margin: 0 0 16px;
+    }
+
+    .layout {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      padding: 22px 12px 50px;
+      align-items: flex-start;
+    }
+
+    .sidebar {
+      width: 170px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 140px;
+      align-sef: flex-start;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 16px 12px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      text-align: center;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.05rem;
+      color: #111827;
+      text-align: center;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .sidebar nav a {
+      display: block;
+      width: 100%;
+      max-width: 140px;
+      padding: 11px 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      color: #111827;
+      font-weight: 600;
+      text-align: center;
+      transition: 0.18s ease;
+    }
+
+    .sidebar nav a:hover {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      text-decoration: none;
+    }
+
+    .main-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero {
+      margin: 0 0 18px;
+      scroll-margin-top: 110px;
+    }
+
+    .hero-box {
+      background: white;
+      border-radius: 22px;
+      padding: 28px 22px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+      border: 1px solid #e5e7eb;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 2rem;
+      line-height: 1.3;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #374151;
+      font-size: 1.03rem;
+    }
+
+    .section {
+      margin-top: 28px;
+      background: white;
+      border-radius: 22px;
+      padding: 28px 22px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      border: 1px solid #e5e7eb;
+      scroll-margin-top: 110px;
+    }
+
+    .section h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.5rem;
+      color: #111827;
+    }
+
+    .section p {
+      margin: 0 0 14px;
+      color: #374151;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 20px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+      color: #111827;
+    }
+
+    .card p {
+      margin: 0 0 14px;
+      color: #4b5563;
+      font-size: 0.97rem;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #374151;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    .card li a {
+      font-weight: 600;
+    }
+
+    .highlight {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 18px;
+      color: #1e3a8a;
+    }
+
+    .contact-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .contact-item {
+      margin-bottom: 12px;
+    }
+
+    .contact-item strong {
+      display: inline-block;
+      min-width: 100px;
+      color: #111827;
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #111827;
+      color: #d1d5db;
+      padding: 28px 18px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    .small {
+      font-size: 0.93rem;
+      color: #6b7280;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        position: static;
+        text-align: center;
+      }
+
+      .sidebar nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .sidebar nav a {
+        max-width: none;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-title {
+        font-size: 1.25rem;
+      }
+
+      .hero h1 {
+        font-size: 1.55rem;
+      }
+
+      .section,
+      .hero-box {
+        padding: 22px 18px;
+        border-radius: 18px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar nav {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-links {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .common-btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <header>
+    <div class="header-inner">
+      <p class="site-title">학생용 갤럭시 · 앱 · AI 실전 가이드</p>
+      <p class="site-subtitle">학생과 초보자를 위한 스마트폰 · 앱 제작 · AI 활용 정보 아카이브</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav>
+        <a href="#home">홈</a>
+        <a href="#about">소개</a>
+        <a href="#categories">카테고리</a>
+        <a href="#contact">문의</a>
+        <a href="#privacy">개인정보<br>처리방침</a>
+        <a href="#terms">이용약관</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <section class="hero" id="home">
+        <div class="hero-box">
+          <h1>학생과 초보자를 위한 실전형 정보 사이트</h1>
+          <p>
+            이 사이트는 갤럭시 스마트폰 활용법, 안드로이드 앱 제작, Flutter 입문,
+            AI 도구 사용법, 각종 오류 해결 방법을 쉽고 정확하게<br> 정리하는 것을 목표로 합니다.
+          </p>
+          <div class="highlight">
+            실제로 도움이 되는 실용적인 정보를 체계적으로 제공하는 것을 최우선으로 합니다.
+          </div>
+        </div>
+      </section>
+
+      <main>
+
+        <section class="section" id="about">
+          <h2>소개 (About)</h2>
+          <p>
+            안녕하세요. 이 사이트는 스마트폰, 앱 개발, AI 도구 활용에 관심 있는
+            학생과 초보자를 위해 만들어진 정보형 가이드 사이트입니다.
+          </p>
+          <p>
+            복잡한 기술 용어를 최대한 쉽게 풀어 설명하고, 실제로 바로 적용할 수 있는
+            팁과 해결 방법을 중심으로 콘텐츠를 제공합니다.
+          </p>
+          <p>
+            앞으로 이 사이트에서는 갤럭시 기능 설명, 앱 제작 입문 가이드,
+            Flutter 사용법, 무료 AI 도구 활용법, 각종 오류 해결 방법 등을
+            꾸준히<br> 업데이트할 예정입니다.
+          </p>
+        </section>
+
+        <section class="section" id="categories">
+          <h2>카테고리</h2>
+          <p>
+            이 사이트는 아래와 같은 핵심 카테고리로 구성되어 있으며,
+            각 카테고리별로 실용적인 글을 지속적으로 추가할 예정입니다.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h3>갤럭시 사용 팁</h3>
+              <p>갤럭시 스마트폰을 더 편리하게 사용하는 방법을 다룹니다.</p>
+              <ul>
+                <li><a href="galaxy-battery-saving-guide.html">배터리 오래 쓰는 설정</a></li>
+                <li><a href="galaxy-notification-fix.html">알림 문제 해결</a></li>
+                <li><a href="galaxy-storage-cleanup-guide.html">저장공간 관리</a></li>
+                <li><a href="galaxy-hidden-features-guide.html">유용한 숨은 기능</a></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>안드로이드 앱 제작</h3>
+              <p>앱 개발을 처음 시작하는 사람을 위한 입문형 가이드입니다.</p>
+              <ul>
+                <li><a href="android-studio-install-guide.html">Android Studio 설치</a></li>
+                <li><a href="android-first-app-guide.html">첫 앱 만들기</a></li>
+                <li><a href="android-apk-build-guide.html">APK 생성 방법</a></li>
+                <li><a href="android-beginner-mistakes.html">초보자 실수 정리</a></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Flutter 입문</h3>
+              <p>Flutter를 처음 배우는 초보자를 위한 설명을 제공합니다.</p>
+              <ul>
+                <li><a href="flutter-install-guide.html">설치 및 실행</a></li>
+                <li><a href="flutter-basic-layout-guide.html">기본 화면 구성</a></li>
+                <li><a href="flutter-button-text-guide.html">버튼/텍스트 사용법</a></li>
+                <li><a href="flutter-beginner-errors.html">자주 발생하는 오류</a></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>AI 도구 활용</h3>
+              <p>공부, 작업, 아이디어 정리에 도움 되는 AI 도구를 소개합니다.</p>
+              <ul>
+                <li><a href="free-ai-tools-guide.html">무료 AI 추천</a></li>
+                <li><a href="student-ai-study-guide.html">학생용 활용법</a></li>
+                <li><a href="chatgpt-writing-guide.html">글쓰기 보조</a></li>
+                <li><a href="ai-app-idea-guide.html">앱 아이디어 정리</a></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>오류 해결</h3>
+              <p>앱, 스마트폰, 브라우저 사용 중 생기는 문제를 해결합니다.</p>
+              <ul>
+                <li><a href="app-not-working-fix.html">앱 실행 오류</a></li>
+                <li><a href="install-failed-fix.html">설치 실패 해결</a></li>
+                <li><a href="permission-error-fix.html">권한 문제 정리</a></li>
+                <li><a href="device-compatibility-fix.html">기기 호환 이슈</a></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>학생용 추천 자료</h3>
+              <p>학생과 초보자에게 실질적으로 도움이 되는 자료를 모읍니다.</p>
+              <ul>
+                <li><a href="study-apps-recommendation.html">공부용 앱 추천</a></li>
+                <li><a href="student-productivity-tools.html">생산성 도구</a></li>
+                <li><a href="device-buying-guide.html">기기 선택 가이드</a></li>
+                <li><a href="beginner-coding-tools.html">입문 학습 자료</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="contact">
+          <h2>문의 (Contact)</h2>
+          <p>
+            사이트 내용에 대한 문의, 수정 요청, 제안 사항이 있다면 아래 연락처를 통해 문의해 주세요.
+          </p>
+
+          <div class="contact-box">
+            <div class="contact-item"><strong>운영자:</strong> Honeylife</div>
+            <div class="contact-item">
+              <strong>이메일:</strong>
+              <a href="mailto:honeylife77@gmail.com?subject=%EC%82%AC%EC%9D%B4%ED%8A%B8%20%EB%AC%B8%EC%9D%98">honeylife77@gmail.com</a>
+            </div>
+            <div class="contact-item"><strong>문의 내용:</strong> 콘텐츠 제안, 오탈자 수정, 협업 문의 등</div>
+          </div>
+
+        </section>
+
+        <section class="section" id="privacy">
+          <h2>개인정보처리방침</h2>
+          <p>
+            본 사이트는 이용자의 개인정보를 소중하게 생각하며, 관련 법령을 준수합니다.
+          </p>
+          <p>
+            본 사이트는 기본적으로 회원가입 기능을 제공하지 않으며, 사용자가 직접 문의를 보내는 경우에 한해
+            이름, 이메일 주소 등 사용자가<br> 자발적으로 제공한 정보를 확인할 수 있습니다.
+          </p>
+          <p>
+            제공된 정보는 문의 응답, 서비스 운영, 사이트 개선을 위한 목적으로만 사용되며,
+            법령에 따른 경우를 제외하고 제3자에게 무단 제공하지<br> 않습니다.
+          </p>
+          <p>
+            또한 본 사이트는 방문자 통계 분석, 서비스 품질 향상, 광고 제공 등을 위해 쿠키(Cookie)를 사용할 수 있습니다.
+            사용자는 브라우저 설정을 통해 쿠키 저장을 거부할 수 있습니다.
+          </p>
+          <p>
+            향후 Google AdSense와 같은 광고 서비스가 적용될 경우, 광고 제공업체는 맞춤형 광고 제공을 위해 쿠키를 사용할 수 있습니다.
+          </p>
+          <p>
+            개인정보 관련 문의가 있을 경우, 아래 문의(Contact) 항목의 이메일을 통해 연락하실 수 있습니다.
+          </p>
+        </section>
+
+        <section class="section" id="terms">
+          <h2>이용약관</h2>
+          <p>
+            본 사이트에 게시된 모든 콘텐츠는 정보 제공을 목적으로 작성되었습니다.
+          </p>
+          <p>
+            운영자는 제공되는 정보의 정확성을 높이기 위해 노력하지만,
+            특정 상황이나 환경에 따라 일부 정보가 최신 상태와 다를 수 있으며,<br>
+            이를 활용한 결과에 대해 법적 책임을 지지 않습니다.
+          </p>
+          <p>
+            사용자는 본 사이트의 콘텐츠를 개인적인 참고 목적으로 이용할 수 있으나,
+            운영자의 사전 허락 없이 무단 복제, 재배포, 상업적 이용을<br> 할 수 없습니다.
+          </p>
+          <p>
+            사이트 운영자는 필요 시 본 이용약관을 수정할 수 있으며,
+            변경 사항은 본 페이지를 통해 공지됩니다.
+          </p>
+          <p>
+            본 사이트를 계속 이용하는 경우, 변경된 약관에 동의한 것으로 간주될 수 있습니다.
+          </p>
+
+          <div class="bottom-links">
+            <a class="common-btn" href="#top">↑ 맨위로 가기</a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p><strong>학생용 갤럭시 · 앱 · AI 실전 가이드</strong></p>
+      <p>학생과 초보자를 위한 실전형 기술 정보 사이트</p>
+      <p class="small">© 2026 Honeylife. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

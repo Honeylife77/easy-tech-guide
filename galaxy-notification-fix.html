@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>갤럭시 알림이 안 올 때 해결하는 방법 총정리 | 학생용 갤럭시 · 앱 · AI 실전 가이드</title>
+  <meta name="description" content="갤럭시 스마트폰에서 카카오톡, 문자, 앱 알림이 안 올 때 확인해야 할 설정과 해결 방법을 자세히 정리했습니다. 알림 지연, 무음, 백그라운드 제한 문제까지 한 번에 확인하세요." />
+  <meta name="theme-color" content="#111827" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+      background: #f8fafc;
+      color: #111827;
+      line-height: 1.85;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* 상단 헤더 (index.html 스타일 맞춤) */
+    header {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: white;
+      padding: 24px 18px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+
+    .header-inner {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .site-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+
+    .site-subtitle {
+      font-size: 0.96rem;
+      opacity: 0.9;
+      margin: 0 0 16px;
+    }
+
+    /* 전체 레이아웃 (index.html 구조 맞춤) */
+    .layout {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      padding: 22px 12px 50px;
+      align-items: flex-start;
+    }
+
+    /* 좌측 메뉴 (index.html 스타일 동일) */
+    .sidebar {
+      width: 170px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 140px;
+      align-self: flex-start;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 16px 12px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      text-align: center;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .sidebar nav a {
+      display: block;
+      width: 100%;
+      max-width: 140px;
+      padding: 11px 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      color: #111827;
+      font-weight: 600;
+      text-align: center;
+      transition: 0.18s ease;
+    }
+
+    .sidebar nav a:hover {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      text-decoration: none;
+    }
+
+    .main-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .article {
+      background: white;
+      border-radius: 24px;
+      padding: 32px 24px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .article h1 {
+      font-size: 2rem;
+      line-height: 1.35;
+      margin-top: 0;
+      margin-bottom: 12px;
+      scroll-margin-top: 110px;
+    }
+
+    .meta {
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .lead {
+      font-size: 1.06rem;
+      color: #374151;
+      margin-bottom: 24px;
+    }
+
+    .toc {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 20px;
+      margin: 26px 0;
+      scroll-margin-top: 110px;
+    }
+
+    .toc h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .toc ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      margin-bottom: 10px;
+    }
+
+    .article h2 {
+      margin-top: 42px;
+      margin-bottom: 14px;
+      font-size: 1.55rem;
+      color: #111827;
+      scroll-margin-top: 110px;
+    }
+
+    .article h3 {
+      margin-top: 28px;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #111827;
+    }
+
+    .article p {
+      margin: 0 0 16px;
+      color: #374151;
+    }
+
+    .article ul,
+    .article ol {
+      padding-left: 22px;
+      margin: 0 0 18px;
+      color: #374151;
+    }
+
+    .article li {
+      margin-bottom: 10px;
+    }
+
+    .tip {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 18px;
+      padding: 18px;
+      margin: 22px 0;
+      color: #1e3a8a;
+    }
+
+    .warning {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-radius: 18px;
+      padding: 18px;
+      margin: 22px 0;
+      color: #9a3412;
+    }
+
+    .faq {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 30px;
+      scroll-margin-top: 110px;
+    }
+
+    /* 최하단 버튼 (index.html 스타일) */
+    .bottom-links {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .common-btn {
+      display: inline-block;
+      padding: 12px 18px;
+      background: #111827;
+      color: #ffffff;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+    }
+
+    .common-btn:hover {
+      text-decoration: none;
+      opacity: 0.95;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      margin-top: 40px;
+      background: #111827;
+      color: #d1d5db;
+      padding: 28px 18px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        position: static;
+        text-align: center;
+      }
+
+      .sidebar nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .sidebar nav a {
+        max-width: none;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-title {
+        font-size: 1.25rem;
+      }
+
+      .article {
+        padding: 24px 18px;
+        border-radius: 18px;
+      }
+
+      .article h1 {
+        font-size: 1.6rem;
+      }
+
+      .article h2 {
+        font-size: 1.35rem;
+      }
+
+      .sidebar nav {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-links {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .common-btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <header>
+    <div class="header-inner">
+      <p class="site-title">알림 문제 해결</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav>
+        <a href="index.html">홈</a>
+        <a href="#toc">목차</a>
+      </nav>
+    </aside>
+
+  <main class="container">
+    <article class="article">
+      <h1>갤럭시 알림이 안 올 때 해결하는 방법 총정리</h1>
+      <p class="meta">카테고리: 갤럭시 사용 팁 · 작성일: 2026-04-08</p>
+
+      <p class="lead">
+        갤럭시 스마트폰을 사용하다 보면 가장 답답한 문제 중 하나가 바로
+        <strong>“알림이 제때 안 오는 현상”</strong>입니다.
+        특히 카카오톡, 문자, 전화, 이메일, 일정, 앱 푸시 알림이 늦게 오거나,
+        화면을 켜야 한꺼번에 몰아서 도착하는 경우는 실생활에서 꽤 불편합니다.
+      </p>
+
+      <p>
+        이런 문제는 단순히 한 가지 설정 때문만 생기는 것이 아닙니다.
+        방해 금지 모드, 배터리 절전, 앱 백그라운드 제한, 알림 채널,<br> 와이파이 절전,
+        데이터 제한, 앱 권한, 시스템 최적화, 앱 자체 오류 등 여러 원인이 겹쳐 나타날 수 있습니다.
+      </p>
+
+      <p>
+        이 글에서는 갤럭시에서 알림이 안 오거나 늦게 오는 문제를 해결하기 위해
+        실제로 가장 자주 원인이 되는 부분들을 하나씩 점검하는<br> 방식으로 정리하겠습니다.
+        단순히 “설정 켜 보세요”가 아니라,
+        <strong>왜 알림이 끊기는지, 어떤 설정이 어떤 영향을 주는지</strong>까지 최대한 쉽게<br> 설명하겠습니다.
+      </p>
+
+      <div class="toc" id="toc">
+        <h2>목차</h2>
+        <ul>
+          <li><a href="#why">갤럭시 알림이 안 오는 대표적인 이유</a></li>
+          <li><a href="#check1">1. 알림 자체가 꺼져 있는지 확인하기</a></li>
+          <li><a href="#check2">2. 앱별 알림 채널 설정 확인하기</a></li>
+          <li><a href="#check3">3. 방해 금지 모드가 켜져 있는지 확인하기</a></li>
+          <li><a href="#check4">4. 배터리 절전 및 백그라운드 제한 확인하기</a></li>
+          <li><a href="#check5">5. 앱이 절전 앱 또는 자동 최적화 대상인지 확인하기</a></li>
+          <li><a href="#check6">6. 모바일 데이터 / 와이파이 연결 문제 점검하기</a></li>
+          <li><a href="#check7">7. 데이터 절약 모드가 알림을 막고 있지 않은지 확인하기</a></li>
+          <li><a href="#check8">8. 앱 권한이 제대로 허용되어 있는지 확인하기</a></li>
+          <li><a href="#check9">9. 카카오톡 알림이 안 올 때 특히 봐야 하는 것</a></li>
+          <li><a href="#check10">10. 문자 및 기본 메시지 알림이 안 올 때 확인할 것</a></li>
+          <li><a href="#check11">11. 잠금화면 알림이 안 보일 때 해결 방법</a></li>
+          <li><a href="#check12">12. 소리는 안 나고 알림만 오는 경우 해결법</a></li>
+          <li><a href="#check13">13. 진동이 안 울리는 경우 확인할 설정</a></li>
+          <li><a href="#check14">14. 앱 업데이트 / 캐시 / 재설치 점검하기</a></li>
+          <li><a href="#check15">15. 시스템 업데이트 및 재부팅이 중요한 이유</a></li>
+          <li><a href="#summary">정리: 가장 먼저 확인해야 할 핵심 7가지</a></li>
+          <li><a href="#faq">자주 묻는 질문</a></li>
+        </ul>
+      </div>
+
+      <h2 id="why">갤럭시 알림이 안 오는 대표적인 이유</h2>
+      <p>
+        알림 문제는 생각보다 복잡합니다. 왜냐하면 “알림”이라는 기능은 단순히 앱 하나만으로 동작하는 것이 아니라,
+        <strong>앱 + 안드로이드 시스템<br> + 네트워크 + 배터리 정책 + 사용자 설정</strong>이 함께 맞물려 작동하기 때문입니다.
+      </p>
+
+      <p>대표적인 원인은 아래와 같습니다.</p>
+      <ul>
+        <li>앱 알림 자체가 꺼져 있음</li>
+        <li>알림은 켜져 있지만 특정 종류(채팅, 전화, 이벤트 등)만 꺼져 있음</li>
+        <li>방해 금지 모드 또는 무음 모드가 켜져 있음</li>
+        <li>배터리 절약 때문에 앱이 백그라운드에서 멈춤</li>
+        <li>와이파이/데이터가 끊겨 푸시 수신이 지연됨</li>
+        <li>잠금화면 알림 표시가 제한됨</li>
+        <li>앱 자체 버그 또는 캐시 문제</li>
+      </ul>
+
+      <div class="tip">
+        중요한 포인트는 “알림이 아예 안 오는지”, “늦게 오는지”, “소리만 안 나는지”, “잠금화면에서만 안 보이는지”를 구분하는 것입니다.<br>
+        원인 찾기가 훨씬 쉬워집니다.
+      </div>
+
+      <h2 id="check1">1. 알림 자체가 꺼져 있는지 확인하기</h2>
+      <p>
+        가장 기본적이지만 의외로 가장 자주 놓치는 부분입니다.
+        어떤 앱은 설치 후 알림 허용을 묻는 팝업에서 실수로 “허용 안 함”을 누르거나,<br>
+        한 번 귀찮아서 꺼 둔 뒤 나중에 잊어버리는 경우가 많습니다.
+      </p>
+
+      <h3>확인 방법</h3>
+      <ol>
+        <li>설정 앱을 엽니다.</li>
+        <li>알림 또는 앱 메뉴로 들어갑니다.</li>
+        <li>문제가 있는 앱을 선택합니다.</li>
+        <li>알림 허용이 켜져 있는지 확인합니다.</li>
+      </ol>
+
+      <p>
+        여기서 중요한 점은 단순히 “알림 켜짐”만 보는 것이 아니라,
+        실제로 <strong>모든 세부 알림 항목이 켜져 있는지</strong>까지 확인해야 한다는 것입니다.
+      </p>
+
+      <h2 id="check2">2. 앱별 알림 채널 설정 확인하기</h2>
+      <p>
+        안드로이드와 갤럭시에서는 앱마다 알림이 여러 종류로 나뉘어 있습니다.
+        예를 들어 메신저 앱 하나만 해도:
+      </p>
+
+      <ul>
+        <li>개인 채팅 알림</li>
+        <li>단체 채팅 알림</li>
+        <li>전화/통화 알림</li>
+        <li>이벤트/광고 알림</li>
+        <li>백업/서비스 상태 알림</li>
+      </ul>
+
+      <p>
+        이런 식으로 세부 채널이 분리되어 있어서,
+        “앱 알림은 켜져 있는데 정작 중요한 알림만 꺼져 있는” 상황이 생길 수 있습니다.
+      </p>
+
+      <h3>확인 포인트</h3>
+      <p>
+        앱 설정 또는 시스템 설정에서 해당 앱의 알림 세부 항목을 열고,
+        <strong>채팅 / 메시지 / 중요한 알림</strong>이 꺼져 있지 않은지 확인하세요.
+      </p>
+
+      <div class="warning">
+        알림이 “완전히 안 오는 것”이 아니라 “특정 상황에서만 안 오는 것”이라면,
+        거의 이 알림 채널 설정 문제일 가능성이 큽니다.
+      </div>
+
+      <h2 id="check3">3. 방해 금지 모드가 켜져 있는지 확인하기</h2>
+      <p>
+        갤럭시에는 공부, 수면, 집중 시간, 게임 중 방해를 줄이기 위한
+        <strong>방해 금지 모드</strong>가 있습니다.
+        이 기능이 켜져 있으면 알림 소리, 진동,<br> 화면 표시 등이 제한될 수 있습니다.
+      </p>
+
+      <p>
+        특히 문제는 사용자가 직접 켜지 않았더라도,
+        <strong>취침 모드, 루틴, 자동 스케줄</strong> 때문에 특정 시간대에 자동으로 켜지는 경우가 있다는 점입니다.
+      </p>
+
+      <h3>확인할 것</h3>
+      <ul>
+        <li>상단바에 방해 금지 아이콘이 있는지</li>
+        <li>설정 → 알림 → 방해 금지에서 예약이 걸려 있는지</li>
+        <li>수면 모드 / 학교 모드 / 공부 모드와 연동되어 있지 않은지</li>
+      </ul>
+
+      <p>
+        “낮에는 괜찮은데 밤에만 안 온다”거나,
+        “특정 시간에만 알림이 사라진다”면 이 부분을 가장 먼저 확인해야 합니다.
+      </p>
+
+      <h2 id="check4">4. 배터리 절전 및 백그라운드 제한 확인하기</h2>
+      <p>
+        갤럭시에서 알림이 늦게 오는 가장 흔한 원인 중 하나는
+        <strong>배터리 절약 정책</strong>입니다.
+      </p>
+
+      <p>
+        앱이 화면에 보이지 않을 때 시스템이 배터리를 아끼기 위해 앱을 깊게 잠재우면,
+        푸시 알림을 실시간으로 받지 못하고 화면을 켤 때<br> 한꺼번에 받는 현상이 생길 수 있습니다.
+      </p>
+
+      <h3>대표 증상</h3>
+      <ul>
+        <li>카카오톡이 바로 안 오고, 앱 열면 몰아서 옴</li>
+        <li>이메일 알림이 늦게 옴</li>
+        <li>잠금 상태에서는 조용하다가 화면 켜면 도착함</li>
+      </ul>
+
+      <h3>확인 방법</h3>
+      <ol>
+        <li>설정 → 배터리 및 디바이스 케어 → 배터리</li>
+        <li>백그라운드 사용 제한 또는 절전 관련 메뉴 확인</li>
+        <li>문제 앱이 “절전 앱”, “잠자기 앱”, “깊은 절전 앱”에 들어가 있지 않은지 확인</li>
+      </ol>
+
+      <div class="tip">
+        메신저, 문자, 이메일, 일정 앱처럼 “즉시 알림이 중요한 앱”은
+        깊은 절전 대상에 들어가 있으면 안 됩니다.
+      </div>
+
+      <h2 id="check5">5. 앱이 절전 앱 또는 자동 최적화 대상인지 확인하기</h2>
+      <p>
+        갤럭시는 사용하지 않는 앱을 자동으로 정리하거나 절전 처리하는 기능이 꽤 적극적인 편입니다.
+        이 기능은 배터리 절약에는 도움이 되지만,
+        어떤 앱에서는 알림이 늦어지는 원인이 되기도 합니다.
+      </p>
+
+      <p>
+        특히 자주 열지 않는 메신저, 학교 앱, 학습 앱, 이메일 앱, 클라우드 앱은
+        “안 쓰는 앱”으로 분류되어 시스템이 뒤에서 제한하는 경우가<br> 있습니다.
+      </p>
+
+      <p>
+        따라서 중요한 알림이 필요한 앱은 자동 최적화 대상에서 제외하는 것이 좋습니다.
+      </p>
+
+      <h2 id="check6">6. 모바일 데이터 / 와이파이 연결 문제 점검하기</h2>
+      <p>
+        푸시 알림은 결국 인터넷 연결을 통해 들어옵니다.
+        따라서 앱 설정이 아무리 완벽해도 네트워크가 불안정하면 알림이 지연될 수 있습니다.
+      </p>
+
+      <p>특히 아래 상황에서 자주 발생합니다.</p>
+      <ul>
+        <li>와이파이는 연결됐지만 실제 인터넷이 느린 경우</li>
+        <li>지하, 엘리베이터, 신호 약한 실내</li>
+        <li>와이파이와 LTE/5G 전환이 자주 일어나는 환경</li>
+        <li>공용 와이파이에서 푸시 연결이 불안정한 경우</li>
+      </ul>
+
+      <p>
+        이런 경우 “알림이 안 온다”기보다
+        사실은 <strong>“연결이 늦어서 뒤늦게 들어오는 것”</strong>일 수 있습니다.
+      </p>
+
+      <h2 id="check7">7. 데이터 절약 모드가 알림을 막고 있지 않은지 확인하기</h2>
+      <p>
+        데이터 절약 모드는 백그라운드 데이터 사용을 제한해
+        데이터 요금을 줄이는 데는 도움이 되지만,
+        일부 앱의 실시간 알림을 방해할 수<br> 있습니다.
+      </p>
+
+      <p>
+        예를 들어 메신저나 이메일 앱이 뒤에서 서버와 계속 연결을 유지해야 하는데,
+        데이터 절약 모드가 이를 막아 버리면 알림이 늦어질 수<br> 있습니다.
+      </p>
+
+      <h3>확인 포인트</h3>
+      <ul>
+        <li>데이터 절약 모드가 켜져 있는지</li>
+        <li>중요 앱이 예외 앱으로 등록되어 있는지</li>
+      </ul>
+
+      <h2 id="check8">8. 앱 권한이 제대로 허용되어 있는지 확인하기</h2>
+      <p>
+        일부 앱은 알림 자체 외에도
+        <strong>배경 실행, 배터리 사용, 알림 표시, 팝업 표시, 잠금화면 표시</strong> 같은 권한이 필요할 수 있습니다.
+      </p>
+
+      <p>
+        예를 들어 통화 앱, 문자 앱, 일정 앱, 건강 앱, 위치 기반 앱은
+        필요한 권한이 제한되면 알림이 비정상적으로 동작할 수 있습니다.
+      </p>
+
+      <p>
+        앱을 오래 쓰다 보면 업데이트 후 권한 체계가 바뀌는 경우도 있으므로,
+        문제가 생긴 앱은 한 번 권한을 전체적으로 점검하는 것이 좋습니다.
+      </p>
+
+      <h2 id="check9">9. 카카오톡 알림이 안 올 때 특히 봐야 하는 것</h2>
+      <p>
+        갤럭시에서 가장 많이 묻는 알림 문제는 거의 항상 카카오톡입니다.
+        카카오톡은 실시간성이 중요한 앱이라,
+        배터리 제한이나 백그라운드<br> 제한의 영향을 특히 크게 받습니다.
+      </p>
+
+      <h3>카카오톡 알림이 안 올 때 자주 걸리는 부분</h3>
+      <ul>
+        <li>카카오톡 앱 알림 허용 꺼짐</li>
+        <li>채팅방 알림만 개별적으로 꺼짐</li>
+        <li>카카오톡이 절전 앱에 들어감</li>
+        <li>방해 금지 모드로 인해 소리/진동 차단</li>
+        <li>앱 캐시 꼬임 또는 업데이트 문제</li>
+      </ul>
+
+      <p>
+        특히 채팅방마다 “알림 끄기”가 따로 걸릴 수 있기 때문에,
+        전체 앱 알림이 켜져 있어도 특정 사람이나 특정 방만 조용할 수 있습니다.
+      </p>
+
+      <div class="warning">
+        “카카오톡은 오는데 소리가 안 난다”와
+        “카카오톡 자체가 늦게 온다”는 완전히 다른 문제입니다.
+        전자는 알림/사운드 문제, 후자는<br> 백그라운드/네트워크 문제일 가능성이 큽니다.
+      </div>
+
+      <h2 id="check10">10. 문자 및 기본 메시지 알림이 안 올 때 확인할 것</h2>
+      <p>
+        문자(SMS/MMS) 알림은 메신저 앱과는 조금 다릅니다.
+        이건 앱 설정뿐 아니라 통신사, 기본 메시지 앱 설정, 시스템 알림 정책까지<br> 영향을 받을 수 있습니다.
+      </p>
+
+      <h3>확인할 것</h3>
+      <ul>
+        <li>기본 메시지 앱이 맞게 설정되어 있는지</li>
+        <li>문자 앱의 알림이 허용되어 있는지</li>
+        <li>문자 차단 / 스팸 필터 설정이 과하게 적용되어 있지 않은지</li>
+        <li>통신 상태가 불안정하지 않은지</li>
+      </ul>
+
+      <p>
+        문자는 앱 푸시와 다르게 “통신망 기반 수신”이기 때문에,
+        네트워크 문제와 메시지 앱 설정을 함께 봐야 합니다.
+      </p>
+
+      <h2 id="check11">11. 잠금화면 알림이 안 보일 때 해결 방법</h2>
+      <p>
+        어떤 경우는 알림이 안 오는 게 아니라,
+        사실은 <strong>알림은 오는데 잠금화면에만 안 보이는 것</strong>일 수 있습니다.
+      </p>
+
+      <p>
+        특히 개인정보 보호 때문에 “내용 숨기기”가 켜져 있거나,
+        잠금화면 알림 자체가 비활성화된 경우가 많습니다.
+      </p>
+
+      <h3>확인 포인트</h3>
+      <ul>
+        <li>잠금화면 알림 허용 여부</li>
+        <li>알림 내용 숨김 여부</li>
+        <li>아이콘만 표시 / 세부 내용 표시 설정</li>
+      </ul>
+
+      <p>
+        이 문제는 “알림이 아예 안 오는 줄 알았는데 사실은 표시만 안 된 것”인 경우가 많아서,
+        꼭 따로 점검해 볼 가치가 있습니다.
+      </p>
+
+      <h2 id="check12">12. 소리는 안 나고 알림만 오는 경우 해결법</h2>
+      <p>
+        알림은 뜨는데 소리만 안 난다면,
+        이건 네트워크나 백그라운드 문제가 아니라
+        <strong>사운드/알림 방식 설정 문제</strong>일 가능성이 큽니다.
+      </p>
+
+      <h3>확인할 것</h3>
+      <ul>
+        <li>무음 / 진동 모드인지</li>
+        <li>앱 알림 소리가 “없음”으로 설정되어 있는지</li>
+        <li>블루투스 이어폰/기기 연결로 소리가 다른 장치로 나가는지</li>
+        <li>미디어 볼륨만 높고 알림 볼륨은 낮은지</li>
+      </ul>
+
+      <p>
+        특히 갤럭시는 볼륨이 종류별로 분리되어 있어서,
+        “영상 소리는 잘 나는데 알림만 안 들리는” 상황이 꽤 흔합니다.
+      </p>
+
+      <h2 id="check13">13. 진동이 안 울리는 경우 확인할 설정</h2>
+      <p>
+        소리 대신 진동으로 알림을 확인하는 사용자라면,
+        진동 설정도 따로 점검해야 합니다.
+      </p>
+
+      <p>
+        진동 강도가 너무 약하거나, 특정 앱의 진동이 꺼져 있거나,
+        방해 금지 모드에서 진동까지 차단된 경우가 원인이 될 수 있습니다.
+      </p>
+
+      <h3>확인 포인트</h3>
+      <ul>
+        <li>진동 모드 활성화 여부</li>
+        <li>알림 진동 강도</li>
+        <li>앱별 진동 허용 여부</li>
+        <li>루틴/방해 금지에서 진동 제한 여부</li>
+      </ul>
+
+      <h2 id="check14">14. 앱 업데이트 / 캐시 / 재설치 점검하기</h2>
+      <p>
+        알림 문제는 때때로 단순한 설정 문제가 아니라,
+        앱 자체의 오류나 캐시 꼬임 때문에 생기기도 합니다.
+      </p>
+
+      <p>
+        특히 앱이 오래 업데이트되지 않았거나,
+        최근 업데이트 후 이상해졌거나,
+        앱 데이터가 비정상적으로 쌓였을 때 알림 동작이 불안정해질 수 있습니다.
+      </p>
+
+      <h3>해볼 만한 순서</h3>
+      <ol>
+        <li>앱 업데이트 확인</li>
+        <li>앱 완전 종료 후 재실행</li>
+        <li>캐시 삭제</li>
+        <li>그래도 안 되면 재설치</li>
+      </ol>
+
+      <div class="tip">
+        메신저, 이메일, 일정 앱처럼 알림이 중요한 앱은
+        버그 수정 업데이트 하나로 문제가 해결되는 경우도 꽤 많습니다.
+      </div>
+
+      <h2 id="check15">15. 시스템 업데이트 및 재부팅이 중요한 이유</h2>
+      <p>
+        많은 사용자가 무시하지만,
+        실제로는 <strong>재부팅 한 번</strong>으로 해결되는 문제도 적지 않습니다.
+      </p>
+
+      <p>
+        시스템 메모리 꼬임, 서비스 충돌, 백그라운드 연결 문제는
+        장시간 켜 둔 스마트폰에서 쌓일 수 있습니다.
+      </p>
+
+      <p>
+        또한 One UI나 안드로이드 업데이트 이후
+        알림 관련 버그가 수정되는 경우도 있으므로,
+        시스템 업데이트를 미루지 않는 것이 좋습니다.
+      </p>
+
+      <h3>추천 습관</h3>
+      <ul>
+        <li>가끔 재부팅하기</li>
+        <li>보안 패치 및 시스템 업데이트 확인하기</li>
+        <li>이상한 증상이 오래가면 안전 모드 점검도 고려하기</li>
+      </ul>
+
+      <h2 id="summary">정리: 가장 먼저 확인해야 할 핵심 7가지</h2>
+      <p>
+        시간이 없고 빠르게 점검하고 싶다면,
+        아래 7가지만 먼저 확인해도 대부분의 알림 문제를 잡을 수 있습니다.
+      </p>
+
+      <ol>
+        <li>앱 알림 허용이 켜져 있는지 확인</li>
+        <li>알림 채널(채팅/문자/중요 알림) 세부 설정 확인</li>
+        <li>방해 금지 모드 / 루틴 자동 실행 확인</li>
+        <li>앱이 절전 앱 또는 깊은 절전 앱에 들어가 있지 않은지 확인</li>
+        <li>와이파이 / 모바일 데이터 연결 상태 확인</li>
+        <li>잠금화면 알림 표시 설정 확인</li>
+        <li>앱 업데이트 및 재부팅 실행</li>
+      </ol>
+
+      <div class="tip">
+        알림 문제는 “한 번에 완벽 해결”보다
+        원인을 하나씩 좁혀 가는 방식이 훨씬 빠릅니다.
+        특히 메신저, 문자, 이메일, 학교 앱처럼<br> 중요한 앱은
+        백그라운드 제한과 방해 금지 모드를 가장 먼저 확인하세요.
+      </div>
+
+      <section class="faq" id="faq">
+        <h2>자주 묻는 질문</h2>
+
+        <h3>Q1. 카카오톡 알림이 화면을 켜야만 와요. 왜 그런가요?</h3>
+        <p>
+          가장 흔한 원인은 배터리 절약 또는 백그라운드 제한입니다.
+          앱이 깊은 절전 상태로 들어가 있으면 실시간 푸시 연결이 끊겨<br>
+          화면을 켤 때 한꺼번에 받을 수 있습니다.
+        </p>
+
+        <h3>Q2. 알림은 오는데 소리만 안 나요. 어떻게 해야 하나요?</h3>
+        <p>
+          무음/진동 모드, 앱별 알림 소리 설정, 블루투스 연결 상태,
+          알림 볼륨 분리 설정을 확인해 보세요.
+        </p>
+
+        <h3>Q3. 잠금화면에서는 안 보이고 열어야만 보입니다.</h3>
+        <p>
+          잠금화면 알림 표시 제한, 내용 숨기기, 아이콘만 표시 설정 때문일 수 있습니다.
+          이 경우 알림 자체는 오고 있지만 표시 방식만<br> 제한된 것입니다.
+        </p>
+
+        <h3>Q4. 특정 앱만 알림이 안 오는데 폰 전체 문제인가요?</h3>
+        <p>
+          꼭 그렇지는 않습니다. 특정 앱만 문제라면
+          그 앱의 알림 채널, 권한, 절전 제외, 업데이트 상태를 집중적으로 확인하는 것이 맞습니다.
+        </p>
+
+        <h3>Q5. 알림 문제를 완전히 없애려면 가장 중요한 한 가지는 무엇인가요?</h3>
+        <p>
+          한 가지만 고르자면,
+          <strong>중요한 알림이 필요한 앱을 과한 배터리 절전/백그라운드 제한에서 제외하는 것</strong>이 가장 중요합니다.<br>
+          갤럭시에서는 이 부분이 실제 원인인 경우가 매우 많습니다.
+        </p>
+      </section>
+
+        <div class="bottom-links">
+          <a class="common-btn" href="#top">↑ 맨위로 가기</a>
+        </div>
+      </article>
+    </div>
+  </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p><strong>학생용 갤럭시 · 앱 · AI 실전 가이드</strong></p>
+      <p>학생과 초보자를 위한 실전형 기술 정보 사이트</p>
+      <p>© 2026 Honeylife. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
